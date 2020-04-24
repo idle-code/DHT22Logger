@@ -38,12 +38,24 @@ def upload_sensor_data(temperature: float, humidity: float):
     print("Upload successful")
 
 
-def log_record():
+def save_in_file(path: str, temperature: float, humidity: float):
+    with open(path, mode='w') as f:
+        print("Temp: {:.1f}".format(temperature), file=f)
+        print("Hum: {:.1f}%".format(humidity), file=f)
+
+
+def log_record(last_status_path: str):
     humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, SENSOR_GPIO_PIN)
     print("Sensor data:", temperature, humidity)
     upload_sensor_data(temperature, humidity)
+    if last_status_path:
+        print("Saving last status to file:", last_status_path)
+        save_in_file(last_status_path, temperature, humidity)
 
 
 if __name__ == "__main__":
-    log_record()
+    if len(sys.argv) < 2:
+        log_record(None)
+    else:
+        log_record(sys.argv[1])
 
