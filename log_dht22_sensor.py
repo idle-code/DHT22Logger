@@ -5,7 +5,7 @@ import csv
 import Adafruit_DHT
 from datetime import datetime
 
-SENSOR_GPIO_PIN=4
+SENSOR_GPIO_PIN=14
 
 def log_record(filename: str):
     humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, SENSOR_GPIO_PIN)
