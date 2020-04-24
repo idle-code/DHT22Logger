@@ -3,18 +3,24 @@ from google.cloud import bigquery
 from google.cloud.bigquery import TableReference
 from datetime import datetime
 import json
+import pytz
 
 
 def default_encoder(o):
     if isinstance(o, datetime):
         return o.isoformat()
 
+warsaw_tz = pytz.timezone('Europe/Warsaw')
 
 def upload(request: flask.Request):
     client = bigquery.Client(project='idlecode-va-data-collection')
 
+    utc_now = datetime.now(pytz.utc)
+    print("UTC time:", utc_now)
+    warsaw_now = utc_now.astimezone(warsaw_tz)
+    print("Warsaw time:", warsaw_now)
     payload = {
-        "timestamp": datetime.now(),
+        "timestamp": warsaw_now,
         "temperature": request.args.get("temperature", type=float),
         "humidity": request.args.get("humidity", type=float)
     }
@@ -24,10 +30,7 @@ def upload(request: flask.Request):
     if not payload["humidity"]:
         return "Missing humidity", 400
 
-    print(json.dumps({
-        "event": "Got data",
-        "payload": payload
-    }, default=default_encoder))
+    print("Got data", payload)
 
     sensor_data: TableReference = client.get_table("DHT22_sensor_data.sensor_data")
     client.insert_rows(table=sensor_data, rows=[payload])
