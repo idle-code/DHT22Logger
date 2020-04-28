@@ -40,8 +40,8 @@ def upload_sensor_data(temperature: float, humidity: float):
 
 def save_in_file(path: str, temperature: float, humidity: float):
     with open(path, mode='w') as f:
-        print("Temp: {:.1f}".format(temperature), file=f)
-        print("Hum: {:.1f}%".format(humidity), file=f)
+        print("Temp: {:.1f}*C".format(temperature), file=f)
+        print("Hum:  {:.1f}%".format(humidity), file=f)
 
 
 def log_record(last_status_path: str):
