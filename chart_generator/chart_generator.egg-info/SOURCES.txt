@@ -1,0 +1,7 @@
+chart_generator.py
+setup.py
+chart_generator.egg-info/PKG-INFO
+chart_generator.egg-info/SOURCES.txt
+chart_generator.egg-info/dependency_links.txt
+chart_generator.egg-info/requires.txt
+chart_generator.egg-info/top_level.txt
