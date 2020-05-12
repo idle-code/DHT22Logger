@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from flask import Request, Flask, render_template, request
 from google.cloud import bigquery
 from google.cloud.bigquery import TableReference

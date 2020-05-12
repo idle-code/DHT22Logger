@@ -29,14 +29,16 @@
             yAxisID: 'temperature',
             data: chart_data.temperature_values,
             borderColor: 'rgba(255, 0, 0)',
-            pointRadius: 5,
+            pointRadius: 2,
+            hitRadius: 3,
           },
           {
             label: 'Humidity',
             yAxisID: 'humidity',
             data: chart_data.humidity_values,
             borderColor: 'rgba(0, 0, 255)',
-            pointRadius: 5,
+            pointRadius: 2,
+            hitRadius: 3,
           },
         ],
       },
@@ -49,11 +51,17 @@
                 position: 'right',
                 suggestedMin: 0,
                 suggestedMax: 100,
+                gridLines: {
+                  color: 'rgba(0, 0, 150)',
+                },
               },
               {
                 id: 'temperature',
                 type: 'linear',
-                position: 'right'
+                position: 'right',
+                gridLines: {
+                  color: 'rgba(150, 0, 0)',
+                },
               },
 
             ],
