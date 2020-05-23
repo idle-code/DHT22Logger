@@ -4,6 +4,7 @@ import os
 import sys
 import Adafruit_DHT
 from datetime import datetime
+from time import sleep
 from google.oauth2 import service_account
 from google.auth.transport.requests import AuthorizedSession
 from google.auth.transport.requests import Request
@@ -46,6 +47,12 @@ def save_in_file(path: str, temperature: float, humidity: float):
 
 def log_record(last_status_path: str):
     humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, SENSOR_GPIO_PIN)
+    delay = 3
+    while humidity > 100:
+        print(f"Invalid humidity value {humidity} - retrying in {delay}s")
+        sleep(delay)
+        humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, SENSOR_GPIO_PIN)
+
     print("Sensor data:", temperature, humidity)
     upload_sensor_data(temperature, humidity)
     if last_status_path:
