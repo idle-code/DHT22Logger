@@ -49,7 +49,7 @@ def log_record(last_status_path: str):
     humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, SENSOR_GPIO_PIN)
     delay = 3
     while humidity > 100:
-        print(f"Invalid humidity value {humidity} - retrying in {delay}s")
+        print("Invalid humidity value {humidity} - retrying in {delay}s".format(humidity=humidity, delay=delay))
         sleep(delay)
         humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, SENSOR_GPIO_PIN)
 
